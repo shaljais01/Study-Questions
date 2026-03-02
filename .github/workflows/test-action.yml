@@ -1,0 +1,13 @@
+name: Test GitHub Action
+
+on:
+  push:
+    branches: ["master", "main"]
+  workflow_dispatch: # This allows you to run it manually
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hello World
+        run: echo "The Action is working!"
