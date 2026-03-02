@@ -16,10 +16,12 @@ def main():
 
     # Initialize Modern Gemini Client
     client = genai.Client(api_key=api_key)
-    # Note: Ensure this model name is active in your AI Studio
-    model_id = "gemini-1.5-pro" 
+    
+    # Updated to a 2026 stable model ID
+    # Use 'gemini-2.5-flash' for speed/cost or 'gemini-3.1-pro-preview' for deep reasoning
+    model_id = "gemini-2.5-flash" 
 
-    # Initialize GitHub with modern Auth (Fixes DeprecationWarning)
+    # Initialize GitHub with modern Auth
     auth = Auth.Token(github_token)
     g = Github(auth=auth)
     repo = g.get_repo(repo_name)
@@ -40,24 +42,11 @@ def main():
     full_diff = "\n\n".join(diff_sections)
 
     # --- Prompt ---
-    prompt = f"""
-You are a senior code reviewer. Review the following Pull Request diff.
-
-**PR Title:** {pr.title}
-**PR Description:** {pr.body or 'No description provided'}
-
----
-**Changed Files & Diffs:**
-{full_diff}
----
-
-Provide a summary, potential bugs, suggestions, and an assessment (Approve/Request Changes).
-"""
+    prompt = f"Review this PR diff and provide a summary, bugs, and suggestions:\n\n{full_diff}"
 
     # --- Generate Review & Post ---
     try:
-        print(f"Generating review for PR #{pr_number}...")
-        # Modern SDK call
+        print(f"Generating review for PR #{pr_number} using {model_id}...")
         response = client.models.generate_content(
             model=model_id,
             contents=prompt
@@ -70,6 +59,7 @@ Provide a summary, potential bugs, suggestions, and an assessment (Approve/Reque
         print("Review comment posted successfully.")
 
     except Exception as e:
+        # This will now catch the specific error if the model name is still wrong
         print(f"Error: {e}")
         sys.exit(1)
 
