@@ -5,7 +5,7 @@
 Problem Statement
 Design a Meeting Scheduler System that supports scheduling meetings across N rooms, while maintaining audit logs, respecting room capacities, and minimizing spillage of free time.
 
-
+Error
 
 🎯 Functional Requirements
 
@@ -21,6 +21,8 @@ Has sufficient capacity.
 Minimizes spillage (i.e., try to avoid blocking longer available slots with short meetings).
 If no room can host the meeting, return failure.
 3. Audit Logs
+
+Testing
 
 Maintain an audit log for each scheduled meeting per room.
 Each log includes:
