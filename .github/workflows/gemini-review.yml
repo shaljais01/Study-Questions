@@ -2,20 +2,20 @@ name: Gemini PR Review
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened] # Triggers on new PR or new push to PR
+    types: [opened, synchronize, reopened]
 
 jobs:
   gemini-review:
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: write   # Needed to post comments
+      pull-requests: write
       contents: read
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0     # Fetch full history so diff works correctly
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -23,7 +23,8 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install google-generativeai PyGithub
+        # Updated to the modern google-genai library
+        run: pip install google-genai PyGithub
 
       - name: Run Gemini review
         env:
