@@ -5,7 +5,7 @@
 Problem Statement
 Design a Meeting Scheduler System that supports scheduling meetings across N rooms, while maintaining audit logs, respecting room capacities, and minimizing spillage of free time.
 
-
+Error out this line error
 
 🎯 Functional Requirements
 
